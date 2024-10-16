@@ -1,4 +1,3 @@
-
 # Stage 1: Build the application
 FROM node:22-alpine AS build
 
@@ -10,7 +9,6 @@ COPY package*.json ./
 
 # Install all dependencies (consider using --production if you don't need devDependencies)
 RUN npm install --production
-
 
 # Copy the rest of the application code
 COPY . .
@@ -26,6 +24,9 @@ COPY --from=build /app/package*.json ./
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/src ./src
 COPY --from=build /app/seeder.js ./seeder.js
+
+# Copy the .env file to the production image
+COPY --from=build /app/.env ./
 
 # Install only production dependencies in the final image
 RUN npm install --production
