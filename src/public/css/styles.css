@@ -1,0 +1,21 @@
+/* Custom styles for the chat layout */
+.chat-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.chat-messages {
+    height: 400px;
+    overflow-y: scroll;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    background-color: #f8f9fa;
+}
+
+.chat-message {
+    padding: 10px;
+    border-bottom: 1px solid #

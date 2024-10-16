@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title || 'Default Title' %></title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles can go here */
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Header -->
+    <header class="bg-blue-600 text-white py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Amr School</h1>
+            <nav class="mt-2">
+                <ul class="flex space-x-4">
+                    <li><a href="/" class="hover:underline">Home</a></li>
+                    <li><a href="/login" class="hover:underline">Login</a></li>
+                    <li><a href="/signup" class="hover:underline">Signup</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto my-6 px-4">
+        <div id="loading" class="hidden text-center">
+            <p>Loading...</p>
+        </div>
+        <div id="content">
+            <%- body %> <!-- Use <%- body %> for HTML content -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-4">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 Amr School. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Show loading when fetching data
+        const loadingElement = document.getElementById('loading');
+        const contentElement = document.getElementById('content');
+
+        function showLoading() {
+            loadingElement.classList.remove('hidden');
+            contentElement.classList.add('hidden');
+        }
+
+        function hideLoading() {
+            loadingElement.classList.add('hidden');
+            contentElement.classList.remove('hidden');
+        }
+
+        // Example usage
+        showLoading();
+        setTimeout(hideLoading, 2000); // Simulate loading time
+    </script>
+</body>
+</html>

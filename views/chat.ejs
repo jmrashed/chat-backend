@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #e9ecef; /* Light background color */
+        }
+    </style>
+</head>
+<body class="flex h-screen">
+    <!-- Sidebar for Contacts -->
+    <div class="w-1/4 bg-white border-r border-gray-200">
+        <div class="p-4 border-b border-gray-200">
+            <h2 class="text-lg font-semibold text-gray-800">Chats</h2>
+        </div>
+        <ul class="overflow-y-auto h-full">
+            <li class="p-4 border-b border-gray-200 hover:bg-gray-100 cursor-pointer transition duration-300">Contact 1</li>
+            <li class="p-4 border-b border-gray-200 hover:bg-gray-100 cursor-pointer transition duration-300">Contact 2</li>
+            <li class="p-4 border-b border-gray-200 hover:bg-gray-100 cursor-pointer transition duration-300">Contact 3</li>
+            <li class="p-4 border-b border-gray-200 hover:bg-gray-100 cursor-pointer transition duration-300">Contact 4</li>
+            <li class="p-4 border-b border-gray-200 hover:bg-gray-100 cursor-pointer transition duration-300">Contact 5</li>
+            <li class="p-4 border-b border-gray-200 hover:bg-gray-100 cursor-pointer transition duration-300">Contact 6</li>
+            <li class="p-4 border-b border-gray-200 hover:bg-gray-100 cursor-pointer transition duration-300">Contact 7</li>
+        </ul>
+    </div>
+
+    <!-- Main Chat Area -->
+    <div class="flex flex-col w-3/4 bg-white">
+        <div class="p-4 border-b border-gray-200">
+            <h2 class="text-lg font-semibold text-gray-800">Chat with Contact 1</h2>
+        </div>
+        <div class="flex-1 overflow-y-auto p-4">
+            <div class="mb-4">
+                <div class="flex">
+                    <div class="bg-blue-500 text-white p-2 rounded-lg max-w-xs ml-auto">Hello!</div>
+                </div>
+            </div>
+            <div class="mb-4">
+                <div class="flex">
+                    <div class="bg-gray-200 text-gray-800 p-2 rounded-lg max-w-xs">Hi! How are you?</div>
+                </div>
+            </div>
+            <div class="mb-4">
+                <div class="flex">
+                    <div class="bg-blue-500 text-white p-2 rounded-lg max-w-xs ml-auto">I'm good, thanks! And you?</div>
+                </div>
+            </div>
+            <div class="mb-4">
+                <div class="flex">
+                    <div class="bg-gray-200 text-gray-800 p-2 rounded-lg max-w-xs">Doing well, thank you!</div>
+                </div>
+            </div>
+        </div>
+        <div class="p-4 border-t border-gray-200 bg-gray-50">
+            <form class="flex items-center space-x-2">
+                <label for="file-upload" class="cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500 hover:text-blue-700 transition duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 16v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4m12-4l4-4m0 0L12 4m4 4v8" />
+                    </svg>
+                    <input id="file-upload" type="file" class="hidden" />
+                </label>
+                <input type="text" class="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300 transition duration-300" placeholder="Type a message...">
+                <button type="submit" class="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition duration-300">Send</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

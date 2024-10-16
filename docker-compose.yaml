@@ -1,0 +1,18 @@
+services:
+  chat_backend:
+    container_name: chat_backend
+    build:
+      context: .
+      target: production
+    ports:
+      - 3020:3020
+    env_file:
+      - .env
+    networks:
+      - chat_server_network
+    volumes:
+      - .:/app  # Mount the current directory for development (optional)
+
+networks:
+  chat_server_network:
+    driver: bridge
