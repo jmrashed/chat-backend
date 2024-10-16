@@ -1,11 +1,9 @@
-version: '3.8'
-
 services:
   chat_backend:
     container_name: chat_backend
     build:
       context: .
-      dockerfile: Dockerfile  # Removed target since there's no multi-stage build
+      dockerfile: Dockerfile  # Use the correct Dockerfile without a target
     ports:
       - "3020:3020"
     env_file:
@@ -13,7 +11,7 @@ services:
     networks:
       - chat_server_network
     volumes:
-      - .:/app  # Mount the current directory (useful for development)
+      - .:/usr/src/app  # Corrected the mount to match the WORKDIR in Dockerfile
     restart: unless-stopped
 
 networks:

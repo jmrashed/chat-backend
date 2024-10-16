@@ -1,11 +1,11 @@
 # Use an official Node.js runtime as a parent image
-FROM node:22-alpine
+FROM node:22
 
 # Set the working directory in the container
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY package.json package.json
-COPY package-lock.json package-lock.json
+# Copy the package.json and package-lock.json files
+COPY package*.json ./
  
 RUN npm install
  
