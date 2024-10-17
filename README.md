@@ -174,3 +174,11 @@ The application includes robust error handling for:
 ## License
 
 This project is licensed under the [MIT License](LICENSE). 
+
+
+ ## Screenshots
+
+Here are some screenshots of the project:
+
+### Screenshot 1
+![Screenshot 1](docs/1.png)
