@@ -10,7 +10,6 @@ const errorHandler = require('./middleware/errorHandler');
 const logger = require('./utils/logger');
 const authRoutes = require('./routes/authRoutes');
 const chatRoutes = require('./routes/chatRoutes');
-const fileRoutes = require('./routes/fileRoutes');
 const rateLimiter = require('./middleware/rateLimiter');
 const fs = require('fs');
 const { swaggerDocs, swaggerUi } = require('../swagger'); // Adjust the path if needed
