@@ -30,7 +30,7 @@
 │   ├── authRoutes.js
 │   ├── chatRoomRoutes.js
 │   ├── chatRoutes.js
-│   └── webRoutes.js
+│   
 ├── seeder.js
 ├── server.js
 ├── services

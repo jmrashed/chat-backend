@@ -13,6 +13,7 @@ const chatRoutes = require('./routes/chatRoutes');
 const fileRoutes = require('./routes/fileRoutes');
 const rateLimiter = require('./middleware/rateLimiter');
 const fs = require('fs');
+const { swaggerDocs, swaggerUi } = require('../swagger'); // Adjust the path if needed
 
 const app = express();
 const server = http.createServer(app);
@@ -21,7 +22,11 @@ const server = http.createServer(app);
 app.use(helmet({
   crossOriginResourcePolicy: false,
 }));
-app.use(cors());
+app.use(cors({
+  origin: '*', // Allow all origins, for more control, specify your Swagger UI's URL
+  methods: 'GET,POST,PUT,DELETE',
+  allowedHeaders: 'Content-Type,Authorization'
+}));
 
 app.use(express.json());
 app.set('trust proxy', true); // Trust the proxy for the X-Forwarded-For header
@@ -51,6 +56,7 @@ connectDB()
 
     // Error handling middleware
     app.use(errorHandler);
+    app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
     // Start the server only after successful MongoDB connection
     const PORT = process.env.PORT || 3000;

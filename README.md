@@ -44,7 +44,7 @@ This is the server-side of a real-time chat application with file-sharing capabi
 │   ├── authRoutes.js
 │   ├── chatRoomRoutes.js
 │   ├── chatRoutes.js
-│   └── webRoutes.js
+│   
 ├── services
 │   └── socketService.js
 ├── socket.js
