@@ -28,7 +28,7 @@ const swaggerOptions = {
           This API is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
           ### Contact
-          For any issues or inquiries, please reach out to [support@rasheduzzaman.com](mailto:support@rasheduzzaman.com).
+          For any issues or inquiries, please reach out to [jmrashed@gmail.com](mailto:jmrashed@gmail.com).
         `,
         contact: {
           name: "Rashed Uz Zaman",
