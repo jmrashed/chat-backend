@@ -23,6 +23,63 @@ This is the server-side of a real-time chat application with file-sharing capabi
 
 ```bash
 .
+├── .env.example
+├── .gitignore
+├── LICENSE
+├── package.json
+├── README.md
+├── API.md
+├── swagger.js
+├── seeder.js
+├── src/
+│   ├── app.js
+│   ├── config/
+│   │   ├── database.js
+│   │   ├── jwtConfig.js
+│   │   └── socket.js
+│   ├── controllers/
+│   │   ├── authController.js
+│   │   ├── chatController.js
+│   │   ├── chatRoomController.js
+│   │   └── fileController.js
+│   ├── middleware/
+│   │   ├── authMiddleware.js
+│   │   ├── errorHandler.js
+│   │   └── rateLimiter.js
+│   ├── models/
+│   │   ├── ChatRoom.js
+│   │   ├── File.js
+│   │   ├── Message.js
+│   │   └── User.js
+│   ├── routes/
+│   │   ├── authRoutes.js
+│   │   ├── chatRoomRoutes.js
+│   │   └── chatRoutes.js
+│   ├── services/
+│   │   ├── authService.js
+│   │   ├── chatService.js
+│   │   ├── fileService.js
+│   │   ├── messageService.js
+│   │   └── socketService.js
+│   ├── utils/
+│   │   ├── fileUpload.js
+│   │   ├── logger.js
+│   │   └── responseFormatter.js
+│   └── validations/
+│       └── auth.js
+├── tests/
+│   ├── auth.test.js
+│   └── chat.test.js
+├── uploads/
+└── views/
+    ├── layouts/
+    └── *.ejs
+```
+
+## Updated Project Structure
+
+```bash
+.
 ├── .env
 ├── .env.example
 ├── .gitignore

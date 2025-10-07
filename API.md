@@ -4,8 +4,8 @@
 
 | Method | Endpoint              | Description                                  |
 |--------|-----------------------|----------------------------------------------|
-| POST   | `/api/auth/signup`    | Register a new user with username and password. Returns a JWT token upon success. |
-| POST   | `/api/auth/login`     | Log in an existing user with username and password. Returns a JWT token upon success. |
+| POST   | `/api/auth/signup`    | Register a new user with username, email and password. Returns a JWT token upon success. |
+| POST   | `/api/auth/login`     | Log in an existing user with email and password. Returns a JWT token upon success. |
 | GET    | `/api/auth/logout`    | Log out the current user by invalidating the JWT token. |
 
 #### 2. Chat Room Management

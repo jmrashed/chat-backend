@@ -22,7 +22,7 @@ app.use(helmet({
   crossOriginResourcePolicy: false,
 }));
 app.use(cors({
-  origin: '*', // Allow all origins, for more control, specify your Swagger UI's URL
+  origin: process.env.CORS_ORIGIN || 'http://localhost:3020',
   methods: 'GET,POST,PUT,DELETE',
   allowedHeaders: 'Content-Type,Authorization'
 }));
