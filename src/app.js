@@ -4,13 +4,21 @@ const http = require('http');
 const path = require('path');
 const cors = require('cors');
 const helmet = require('helmet');
+const { getConfig } = require('./config/environment');
 const connectDB = require('./config/database');
 const { initializeSocket } = require('./config/socket'); // Uncomment if using Socket.IO
 const errorHandler = require('./middleware/errorHandler');
 const logger = require('./utils/logger');
 const authRoutes = require('./routes/authRoutes');
 const chatRoutes = require('./routes/chatRoutes');
-const rateLimiter = require('./middleware/rateLimiter');
+const chatRoomRoutes = require('./routes/chatRoomRoutes');
+const { 
+  generalLimiter, 
+  authLimiter, 
+  messageLimiter, 
+  fileUploadLimiter, 
+  roomCreationLimiter 
+} = require('./middleware/rateLimiter');
 const fs = require('fs');
 const { swaggerDocs, swaggerUi } = require('../swagger'); // Adjust the path if needed
 
@@ -21,10 +29,12 @@ const server = http.createServer(app);
 app.use(helmet({
   crossOriginResourcePolicy: false,
 }));
+const config = getConfig();
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:3020',
+  origin: config.cors.origin,
   methods: 'GET,POST,PUT,DELETE',
-  allowedHeaders: 'Content-Type,Authorization'
+  allowedHeaders: 'Content-Type,Authorization',
+  credentials: config.cors.credentials
 }));
 
 app.use(express.json());
@@ -45,13 +55,16 @@ connectDB()
   .then(() => {
     logger.info('Connected to MongoDB successfully.');
 
-    // Initialize Socket.IO (if required)
-    initializeSocket(server); // Uncomment if using Socket.IO
+    // Initialize Socket.IO
+    initializeSocket(server);
 
-    // Routes
-    app.use('/api/auth', rateLimiter, authRoutes);
-    // app.use('/api/chat', rateLimiter, chatRoutes); // Uncomment if using chat routes
-    // app.use('/api/file', rateLimiter, fileRoutes); // Uncomment if using file routes
+    // Routes with specific rate limiting
+    app.use('/api/auth', authLimiter, authRoutes);
+    app.use('/api/messages', messageLimiter, chatRoutes);
+    app.use('/api/rooms', generalLimiter, chatRoomRoutes);
+    
+    // Apply general rate limiting to all other routes
+    app.use('/api', generalLimiter);
 
     // Error handling middleware
     app.use(errorHandler);

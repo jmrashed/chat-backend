@@ -1,12 +1,17 @@
 {
     "name": "real-time-chat-app",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "A real-time chat application with file sharing, authentication, and MongoDB persistence.",
     "main": "src/app.js",
     "scripts": {
         "start": "node src/app.js",
         "dev": "nodemon src/app.js",
         "test": "jest --detectOpenHandles",
+        "test:unit": "jest tests/auth.test.js tests/chatRoom.test.js tests/message.test.js tests/fileUpload.test.js --detectOpenHandles",
+        "test:integration": "jest tests/integration.test.js --detectOpenHandles",
+        "test:performance": "jest tests/performance.test.js --detectOpenHandles --runInBand",
+        "test:coverage": "jest --coverage --detectOpenHandles",
+        "test:watch": "jest --watch --detectOpenHandles",
         "lint": "eslint .",
         "prestart": "node -e 'require(\"dotenv\").config()'",
         "seed": "node seeder.js"

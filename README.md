@@ -9,6 +9,11 @@ This is the server-side of a real-time chat application with file-sharing capabi
 - **User Authentication**: Secure user login and registration using JWT (JSON Web Tokens).
 - **Persistent Chat History**: MongoDB stores chat messages, user data, and file metadata for future retrieval.
 - **Scalability**: The application is designed for horizontal scaling and optimized for concurrent users.
+- **Comprehensive Testing**: Unit, integration, and performance tests with 80%+ coverage.
+- **Input Validation**: Joi-based validation for all endpoints with detailed error messages.
+- **Rate Limiting**: Configurable rate limits for different endpoint types.
+- **Environment Configuration**: Separate configs for development, production, and testing.
+- **Error Handling**: Consistent error responses and proper exception handling.
 
 ## Technologies Used
 
@@ -171,10 +176,18 @@ This is the server-side of a real-time chat application with file-sharing capabi
 
 ## Running Tests
 
-To execute tests for authentication and chat functionality, use the following command:
+Comprehensive test suite covering unit, integration, and performance tests:
 
 ```bash
+# Run all tests
 npm test
+
+# Run specific test suites
+npm run test:unit          # Unit tests (auth, chat rooms, messages, files)
+npm run test:integration   # Integration tests (full API flows)
+npm run test:performance   # Performance tests (load testing)
+npm run test:coverage      # Generate coverage report
+npm run test:watch         # Watch mode for development
 ```
 
 ## Docker Setup
@@ -211,14 +224,34 @@ For API documentation, you can explore the endpoints through Postman or Swagger:
 - **Database Indexing**: Ensure MongoDB collections are indexed for optimal query performance.
 - **Rate Limiting**: Implement rate limiting to control API usage and prevent server overload.
 
-## Error Handling
+## Quality Assurance
 
-The application includes robust error handling for:
+### Error Handling
+Robust error handling throughout the application:
+- Invalid JWT tokens and authentication failures
+- Database connection and query errors
+- File upload/download issues and validation
+- Input validation with detailed error messages
+- Consistent error response format
 
-- Invalid JWT tokens
-- Database connection errors
-- File upload/download issues
-- User authentication failures
+### Testing
+- **Unit Tests**: Individual component testing (auth, rooms, messages, files)
+- **Integration Tests**: Full API workflow testing
+- **Performance Tests**: Load testing and concurrent user simulation
+- **Coverage**: 80%+ test coverage with detailed reports
+
+### Security
+- Rate limiting on all endpoints (configurable per endpoint type)
+- Input validation and sanitization
+- File type and size restrictions
+- Environment-specific CORS configuration
+- Secure password hashing with bcrypt
+
+### Code Quality
+- JSDoc documentation for all functions
+- Consistent error handling patterns
+- Environment-specific configurations
+- Clean, maintainable code structure
 
 ## Future Improvements
 
