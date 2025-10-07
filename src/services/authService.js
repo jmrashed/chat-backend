@@ -12,9 +12,17 @@ const {
   sendInternalServerErrorResponse,
   sendUnauthorizedResponse,
 } = require("../utils/responseFormatter"); // Corrected import path
-const { register } = require("../services/authService");
 const logger = require('../utils/logger');
 
+/**
+ * Register a new user
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {string} req.body.username - User's username
+ * @param {string} req.body.email - User's email address
+ * @param {string} req.body.password - User's password
+ * @returns {Object} Response with user ID or error
+ */
 exports.register = async (req, res) => {
  const {username, email, password} = req.body
   const { error } = registerValidate.validate(req.body, { abortEarly: false });
@@ -33,6 +41,14 @@ exports.register = async (req, res) => {
    return sendCreatedResponse(res, "User registered successfully.", { userId: newUser._id });
 };
 
+/**
+ * Authenticate user login
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {string} req.body.email - User's email address
+ * @param {string} req.body.password - User's password
+ * @returns {Object} Response with JWT token and user data or error
+ */
 exports.login = async (req, res) => {
   const { error } = loginValidate.validate(req.body, { abortEarly: false });
   if (error) {
@@ -60,11 +76,17 @@ exports.login = async (req, res) => {
     }
     return sendSuccessResponse(res, "Login successful", data);
   } catch (error) {
-    logger.error("Error logging in:", error); // Use logger for error logging
+    logger.error("Error logging in:", error);
     return sendInternalServerErrorResponse(res, "An error occurred during login");
   }
 };
 
+/**
+ * Verify JWT token
+ * @param {string} token - JWT token to verify
+ * @returns {Object} Decoded token payload
+ * @throws {Error} If token is invalid or expired
+ */
 exports.verifyToken = (token) => {
   return jwt.verify(token, process.env.JWT_SECRET);
 };

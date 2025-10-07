@@ -1,35 +1,234 @@
 ## API Endpoints
 
+### Authentication
+All protected endpoints require a JWT token in the Authorization header:
+```
+Authorization: Bearer <your_jwt_token>
+```
+
 #### 1. User Authentication
 
-| Method | Endpoint              | Description                                  |
-|--------|-----------------------|----------------------------------------------|
-| POST   | `/api/auth/signup`    | Register a new user with username, email and password. Returns a JWT token upon success. |
-| POST   | `/api/auth/login`     | Log in an existing user with email and password. Returns a JWT token upon success. |
-| GET    | `/api/auth/logout`    | Log out the current user by invalidating the JWT token. |
+**POST /api/auth/signup**
+- **Description**: Register a new user
+- **Request Body**:
+```json
+{
+  "username": "john_doe",
+  "email": "john@example.com",
+  "password": "securePassword123"
+}
+```
+- **Success Response (201)**:
+```json
+{
+  "success": true,
+  "message": "User registered successfully.",
+  "data": {
+    "userId": "64f8a1b2c3d4e5f6a7b8c9d0"
+  }
+}
+```
+- **Error Responses**:
+  - 400: Validation failed or email already exists
+  - 500: Internal server error
+
+**POST /api/auth/login**
+- **Description**: Log in an existing user
+- **Request Body**:
+```json
+{
+  "email": "john@example.com",
+  "password": "securePassword123"
+}
+```
+- **Success Response (200)**:
+```json
+{
+  "success": true,
+  "message": "Login successful",
+  "data": {
+    "id": "64f8a1b2c3d4e5f6a7b8c9d0",
+    "username": "john_doe",
+    "email": "john@example.com",
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  }
+}
+```
+- **Error Responses**:
+  - 401: Invalid credentials
+  - 400: Validation failed
+  - 500: Internal server error
+
+**GET /api/auth/logout**
+- **Description**: Log out the current user
+- **Headers**: Authorization: Bearer <token>
+- **Success Response (200)**:
+```json
+{
+  "success": true,
+  "message": "User logged out successfully."
+}
+```
 
 #### 2. Chat Room Management
 
-| Method | Endpoint                | Description                                      |
-|--------|-------------------------|--------------------------------------------------|
-| POST   | `/api/rooms`            | Create a new chat room. Requires JWT for authentication. |
-| GET    | `/api/rooms`            | Retrieve a list of all available chat rooms.   |
-| GET    | `/api/rooms/:roomId`    | Get details of a specific chat room, including chat history. |
+**POST /api/rooms**
+- **Description**: Create a new chat room
+- **Headers**: Authorization: Bearer <token>
+- **Request Body**:
+```json
+{
+  "name": "General Discussion",
+  "description": "A room for general conversations"
+}
+```
+- **Success Response (201)**:
+```json
+{
+  "success": true,
+  "message": "Room created successfully",
+  "data": {
+    "_id": "64f8a1b2c3d4e5f6a7b8c9d1",
+    "name": "General Discussion",
+    "description": "A room for general conversations",
+    "createdBy": "64f8a1b2c3d4e5f6a7b8c9d0",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  }
+}
+```
+
+**GET /api/rooms**
+- **Description**: Retrieve all chat rooms
+- **Success Response (200)**:
+```json
+{
+  "success": true,
+  "message": "Rooms retrieved successfully",
+  "data": [
+    {
+      "_id": "64f8a1b2c3d4e5f6a7b8c9d1",
+      "name": "General Discussion",
+      "description": "A room for general conversations",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}
+```
+
+**GET /api/rooms/:roomId**
+- **Description**: Get specific room details
+- **Success Response (200)**:
+```json
+{
+  "success": true,
+  "message": "Room details retrieved successfully",
+  "data": {
+    "_id": "64f8a1b2c3d4e5f6a7b8c9d1",
+    "name": "General Discussion",
+    "description": "A room for general conversations",
+    "messages": [],
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  }
+}
+```
 
 #### 3. Chat Messaging
 
-| Method | Endpoint                     | Description                                      |
-|--------|------------------------------|--------------------------------------------------|
-| POST   | `/api/messages`              | Send a new message to a specific chat room. Requires JWT for authentication. |
-| GET    | `/api/messages/:roomId`      | Retrieve all messages for a specific chat room. |
+**POST /api/messages**
+- **Description**: Send a message to a chat room
+- **Headers**: Authorization: Bearer <token>
+- **Request Body**:
+```json
+{
+  "roomId": "64f8a1b2c3d4e5f6a7b8c9d1",
+  "content": "Hello everyone!"
+}
+```
+- **Success Response (201)**:
+```json
+{
+  "success": true,
+  "message": "Message sent successfully",
+  "data": {
+    "_id": "64f8a1b2c3d4e5f6a7b8c9d2",
+    "content": "Hello everyone!",
+    "sender": "64f8a1b2c3d4e5f6a7b8c9d0",
+    "room": "64f8a1b2c3d4e5f6a7b8c9d1",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  }
+}
+```
+
+**GET /api/messages/:roomId**
+- **Description**: Retrieve messages for a room
+- **Success Response (200)**:
+```json
+{
+  "success": true,
+  "message": "Messages retrieved successfully",
+  "data": [
+    {
+      "_id": "64f8a1b2c3d4e5f6a7b8c9d2",
+      "content": "Hello everyone!",
+      "sender": {
+        "_id": "64f8a1b2c3d4e5f6a7b8c9d0",
+        "username": "john_doe"
+      },
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}
+```
 
 #### 4. File Upload and Sharing
 
-| Method | Endpoint                      | Description                                      |
-|--------|-------------------------------|--------------------------------------------------|
-| POST   | `/api/files/upload`           | Upload a file to the server. Returns metadata (e.g., file URL, name) upon success. |
-| GET    | `/api/files/:fileId`          | Download a specific file using its ID.         |
-| GET    | `/api/files`                  | Retrieve a list of uploaded files with metadata. |
+**POST /api/files/upload**
+- **Description**: Upload a file
+- **Headers**: 
+  - Authorization: Bearer <token>
+  - Content-Type: multipart/form-data
+- **Request Body**: Form data with file field
+- **Success Response (201)**:
+```json
+{
+  "success": true,
+  "message": "File uploaded successfully",
+  "data": {
+    "_id": "64f8a1b2c3d4e5f6a7b8c9d3",
+    "filename": "document.pdf",
+    "originalName": "my-document.pdf",
+    "mimetype": "application/pdf",
+    "size": 1024000,
+    "url": "/uploads/document-1234567890.pdf",
+    "uploadedBy": "64f8a1b2c3d4e5f6a7b8c9d0",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  }
+}
+```
+
+**GET /api/files/:fileId**
+- **Description**: Download a file
+- **Success Response**: File download with appropriate headers
+
+**GET /api/files**
+- **Description**: List uploaded files
+- **Success Response (200)**:
+```json
+{
+  "success": true,
+  "message": "Files retrieved successfully",
+  "data": [
+    {
+      "_id": "64f8a1b2c3d4e5f6a7b8c9d3",
+      "filename": "document.pdf",
+      "originalName": "my-document.pdf",
+      "size": 1024000,
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}
+```
 
 #### 5. Real-Time Communication (WebSocket)
 
@@ -41,14 +240,79 @@
   - `message`: Event to send a message in the chat room (handles real-time messaging).
   - `fileUpload`: Event to handle file uploads in real time.
 
-### Additional Notes
+#### 5. Real-Time Communication (WebSocket)
 
-- **Authentication**: All routes that modify data (except for public routes like signup and login) should be protected by JWT authentication. Ensure the token is passed in the Authorization header as `Bearer <token>`.
+**Connection**
+```javascript
+const socket = io('http://localhost:3020', {
+  auth: {
+    token: 'your_jwt_token'
+  }
+});
+```
+
+**Events**:
+- `connect`: User connects to WebSocket
+- `disconnect`: User disconnects
+- `joinRoom`: Join a chat room
+  ```javascript
+  socket.emit('joinRoom', { roomId: '64f8a1b2c3d4e5f6a7b8c9d1' });
+  ```
+- `leaveRoom`: Leave a chat room
+  ```javascript
+  socket.emit('leaveRoom', { roomId: '64f8a1b2c3d4e5f6a7b8c9d1' });
+  ```
+- `message`: Send/receive real-time messages
+  ```javascript
+  // Send message
+  socket.emit('message', {
+    roomId: '64f8a1b2c3d4e5f6a7b8c9d1',
+    content: 'Hello!'
+  });
   
-- **Error Handling**: Each endpoint should return appropriate HTTP status codes and error messages in the response body for different failure scenarios (e.g., 400 for bad requests, 401 for unauthorized access, 404 for not found).
+  // Receive message
+  socket.on('message', (data) => {
+    console.log('New message:', data);
+  });
+  ```
 
-- **Scalability**: Consider implementing pagination for messages and files, as well as load balancing strategies for WebSocket connections to handle increased traffic.
+## Error Handling
 
-- **Documentation**: Use tools like Swagger or Postman to document your API routes, including request/response examples for easy reference.
+### HTTP Status Codes
+- **200**: Success
+- **201**: Created successfully
+- **400**: Bad request (validation errors)
+- **401**: Unauthorized (invalid/missing token)
+- **403**: Forbidden (insufficient permissions)
+- **404**: Not found
+- **429**: Too many requests (rate limited)
+- **500**: Internal server error
 
-This API list will serve as a foundation for building your chat application, ensuring that you cover all necessary functionalities for user interactions, messaging, and file sharing.
+### Error Response Format
+```json
+{
+  "success": false,
+  "message": "Error description",
+  "errors": ["Detailed error messages"]
+}
+```
+
+### Common Errors
+- **Invalid JWT Token**: 401 Unauthorized
+- **Validation Errors**: 400 Bad Request with field-specific errors
+- **Rate Limit Exceeded**: 429 Too Many Requests
+- **Resource Not Found**: 404 Not Found
+
+## Rate Limiting
+- **Authentication endpoints**: 5 requests per minute
+- **General API**: 100 requests per 15 minutes
+- **File uploads**: 10 requests per hour
+
+## Pagination
+For endpoints returning lists, use query parameters:
+- `page`: Page number (default: 1)
+- `limit`: Items per page (default: 20, max: 100)
+- `sort`: Sort field (default: createdAt)
+- `order`: Sort order (asc/desc, default: desc)
+
+Example: `GET /api/messages/roomId?page=2&limit=50&sort=createdAt&order=asc`

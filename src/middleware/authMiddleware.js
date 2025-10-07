@@ -1,25 +1,31 @@
 const jwt = require("jsonwebtoken");
 const {
     sendUnauthorizedResponse,
-} = require("../utils/responseFormatter"); // Ensure you have appropriate response formatter functions
+} = require("../utils/responseFormatter");
 
-// Middleware to authenticate JWT
+/**
+ * JWT Authentication Middleware
+ * Verifies JWT token from Authorization header and attaches user to request
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ * @returns {void} Calls next() if authenticated, sends error response if not
+ */
 const authenticateJWT = (req, res, next) => {
-  // Extract token from the Authorization header
+  // Extract token from the Authorization header (Bearer <token>)
   const token = req.header("Authorization")?.split(" ")[1];
 
-  // Check if token is provided
   if (!token) {
-    return sendUnauthorizedResponse(res, "No token provided."); // Use response formatter
+    return sendUnauthorizedResponse(res, "No token provided.");
   }
 
-  // Verify the token
+  // Verify the JWT token
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
-      return sendUnauthorizedResponse(res, "Invalid token."); // Use response formatter
+      return sendUnauthorizedResponse(res, "Invalid token.");
     }
-    req.user = user; // Attach user information to the request object
-    next(); // Proceed to the next middleware or route handler
+    req.user = user; // Attach decoded user info to request
+    next();
   });
 };
 
