@@ -1,6 +1,31 @@
 # Real-Time Chat Application (Server)
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org/)
+[![Express.js](https://img.shields.io/badge/Express.js-4.19.2-000000)](https://expressjs.com/)
+[![Socket.IO](https://img.shields.io/badge/Socket.IO-4.8.1-010101)](https://socket.io/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-7.0.14-47A248)](https://www.mongodb.com/)
+[![Mongoose](https://img.shields.io/badge/Mongoose-8.7.0-880000)](https://mongoosejs.com/)
+[![JWT](https://img.shields.io/badge/JWT-9.0.2-000000)](https://jwt.io/)
+[![Bcrypt](https://img.shields.io/badge/Bcrypt-5.1.1-3178C6)](https://www.npmjs.com/package/bcrypt)
+[![Joi](https://img.shields.io/badge/Joi-17.13.3-blue)](https://joi.dev/)
+[![Jest](https://img.shields.io/badge/Jest-29.7.0-C21325)](https://jestjs.io/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED)](https://www.docker.com/)
+[![API](https://img.shields.io/badge/API-RESTful-FF6C37)](https://restfulapi.net/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+[![GitHub Stars](https://img.shields.io/github/stars/jmrashed/chat-backend?style=social)](https://github.com/jmrashed/chat-backend/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/jmrashed/chat-backend?style=social)](https://github.com/jmrashed/chat-backend/network/members)
+
 This is the server-side of a real-time chat application with file-sharing capabilities. Built using **Node.js**, **Express**, **Socket.IO**, and **MongoDB**, it allows users to join chat rooms, send/receive real-time messages, and share files using Node.js streams and buffers. User authentication, chat history, and file metadata are stored securely in MongoDB.
+
+## Related Repositories
+
+**Frontend Client**: For the complete chat application experience, you'll also need the frontend client. Check out the [Chat Frontend Repository](https://github.com/jmrashed/chat-frontend) which provides:
+- Modern Next.js React interface
+- Real-time UI updates
+- Responsive design
+- Optimized performance
+- Socket.IO client integration
 
 ## Features
 
@@ -252,3 +277,21 @@ Here are some screenshots of the project:
 
 ### Screenshot 1
 ![Screenshot 1](docs/1.png)
+
+## 👨💻 Author
+
+**Md Rasheduzzaman**  
+Full-Stack Software Engineer & Technical Project Manager  
+
+Building scalable, secure & AI-powered SaaS platforms across ERP, HRMS, CRM, LMS, and E-commerce domains.  
+Over 10 years of experience leading full-stack teams, cloud infrastructure, and enterprise-grade software delivery.
+
+**🌐 Portfolio:** [jmrashed.github.io](https://jmrashed.github.io/)  
+**✉️ Email:** [jmrashed@gmail.com](mailto:jmrashed@gmail.com)  
+**💼 LinkedIn:** [linkedin.com/in/jmrashed](https://www.linkedin.com/in/jmrashed/)  
+**📝 Blog:** [medium.com/@jmrashed](https://medium.com/@jmrashed)  
+**💻 GitHub:** [github.com/jmrashed](https://github.com/jmrashed)
+
+---
+
+> *"Need a Reliable Software Partner? I build scalable, secure & modern solutions for startups and enterprises."*
