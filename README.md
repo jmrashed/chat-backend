@@ -99,46 +99,7 @@ This is the server-side of a real-time chat application with file-sharing capabi
     ├── layouts/
     └── *.ejs
 ```
-
-## Updated Project Structure
-
-```bash
-.
-├── .env
-├── .env.example
-├── .gitignore
-├── app.js
-├── config
-│   ├── db.js
-│   └── jwtConfig.js
-├── controllers
-│   ├── authController.js
-│   ├── chatController.js
-│   └── chatRoomController.js
-├── middleware
-│   └── authMiddleware.js
-├── models
-│   ├── ChatMessage.js
-│   ├── ChatRoom.js
-│   └── User.js
-├── routes
-│   ├── authRoutes.js
-│   ├── chatRoomRoutes.js
-│   ├── chatRoutes.js
-│   
-├── services
-│   └── socketService.js
-├── socket.js
-├── swagger.js
-├── uploads
-├── utils
-│   ├── logger.js
-│   └── responseFormatter.js
-├── seeder.js
-└── tests
-    ├── auth.test.js
-    └── chat.test.js
-```
+ 
 
 ## Installation
 
