@@ -34,12 +34,23 @@ This is the server-side of a real-time chat application with file-sharing capabi
 ├── package.json
 ├── README.md
 ├── API.md
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+├── SECURITY.md
 ├── swagger.js
 ├── seeder.js
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   ├── feature_request.md
+│   │   └── question.md
+│   └── PULL_REQUEST_TEMPLATE.md
 ├── src/
 │   ├── app.js
 │   ├── config/
 │   │   ├── database.js
+│   │   ├── environment.js
 │   │   ├── jwtConfig.js
 │   │   └── socket.js
 │   ├── controllers/
@@ -71,10 +82,18 @@ This is the server-side of a real-time chat application with file-sharing capabi
 │   │   ├── logger.js
 │   │   └── responseFormatter.js
 │   └── validations/
-│       └── auth.js
+│       ├── auth.js
+│       ├── chatRoom.js
+│       ├── file.js
+│       └── message.js
 ├── tests/
 │   ├── auth.test.js
-│   └── chat.test.js
+│   ├── chat.test.js
+│   ├── chatRoom.test.js
+│   ├── fileUpload.test.js
+│   ├── integration.test.js
+│   ├── message.test.js
+│   └── performance.test.js
 ├── uploads/
 └── views/
     ├── layouts/
