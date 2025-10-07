@@ -5,6 +5,16 @@ const {
   sendMessage,
   getMessages,
   uploadFile,
+  addReaction,
+  removeReaction,
+  editMessage,
+  deleteMessage,
+  markAsRead,
+  searchMessages,
+  pinMessage,
+  addFavorite,
+  removeFavorite,
+  getFavorites
 } = require("../controllers/chatController");
 const { authenticateJWT } = require("../middleware/authMiddleware");
 
@@ -90,81 +100,31 @@ const router = express.Router();
  *       500:
  *         description: Internal server error
  */
+// Message CRUD operations
 router.post("/messages", authenticateJWT, sendMessage);
+router.get("/messages/:room", authenticateJWT, getMessages);
+router.put("/messages/:id", authenticateJWT, editMessage);
+router.delete("/messages/:id", authenticateJWT, deleteMessage);
 
-/**
- * @swagger
- * /api/chat/messages:
- *   get:
- *     tags: [Chat]
- *     summary: Get messages from a chat room
- *     description: Retrieves messages from a specified chat room. Requires the room ID as a query parameter.
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: query
- *         name: room
- *         required: true
- *         schema:
- *           type: string
- *           example: "12345"
- *     responses:
- *       200:
- *         description: Messages retrieved successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Message'
- *       401:
- *         description: Unauthorized, invalid or missing JWT token
- *       404:
- *         description: Room not found, invalid room ID provided
- *       500:
- *         description: Internal server error
- */
-router.get("/messages", authenticateJWT, getMessages);
+// Message reactions
+router.post("/messages/:id/react", authenticateJWT, addReaction);
+router.delete("/messages/:id/react/:reactionId", authenticateJWT, removeReaction);
 
-/**
- * @swagger
- * /api/chat/upload:
- *   post:
- *     tags: [Chat]
- *     summary: Upload a file
- *     description: Allows users to upload a file to a specified chat room. The file and room ID must be included in the request.
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             required:
- *               - file
- *               - room
- *             properties:
- *               file:
- *                 type: string
- *                 format: binary
- *               room:
- *                 type: string
- *                 example: "12345"
- *     responses:
- *       201:
- *         description: File uploaded successfully
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/UploadResponse'
- *       400:
- *         description: Bad request, invalid input
- *       401:
- *         description: Unauthorized, invalid or missing JWT token
- *       500:
- *         description: Internal server error
- */
-router.post("/upload", authenticateJWT, uploadFile);
+// Message status
+router.put("/messages/:id/read", authenticateJWT, markAsRead);
+
+// Message search
+router.get("/messages/search", authenticateJWT, searchMessages);
+
+// Message pinning
+router.put("/messages/:id/pin", authenticateJWT, pinMessage);
+
+// Favorites
+router.post("/favorites", authenticateJWT, addFavorite);
+router.delete("/favorites/:messageId", authenticateJWT, removeFavorite);
+router.get("/favorites", authenticateJWT, getFavorites);
+
+// File upload
+router.post("/upload", authenticateJWT, upload.single('file'), uploadFile);
 
 module.exports = router;

@@ -29,25 +29,46 @@ This is the server-side of a real-time chat application with file-sharing capabi
 
 ## Features
 
-- **Real-time Communication**: Users can send and receive messages in real-time using Socket.IO.
-- **File Sharing**: Efficient file uploads/downloads with Node.js streams and buffers.
-- **User Authentication**: Secure user login and registration using JWT (JSON Web Tokens).
-- **Persistent Chat History**: MongoDB stores chat messages, user data, and file metadata for future retrieval.
-- **Scalability**: The application is designed for horizontal scaling and optimized for concurrent users.
-- **Comprehensive Testing**: Unit, integration, and performance tests with 80%+ coverage.
-- **Input Validation**: Joi-based validation for all endpoints with detailed error messages.
-- **Rate Limiting**: Configurable rate limits for different endpoint types.
-- **Environment Configuration**: Separate configs for development, production, and testing.
-- **Error Handling**: Consistent error responses and proper exception handling.
+### Core Messaging
+- **Real-time Communication**: Users can send and receive messages in real-time using Socket.IO
+- **Message Reactions**: React to messages with emojis, real-time reaction updates
+- **Message Editing/Deletion**: Edit sent messages and soft delete with permissions
+- **Message Threads/Replies**: Reply to specific messages and create threaded conversations
+- **Mentions**: @mention functionality with real-time notifications
+- **Message Status**: Sent, delivered, and read status indicators
+- **Typing Indicators**: Real-time "user is typing" notifications
+- **Message Search**: Full-text search within chat history with pagination
+- **Pinned Messages**: Pin important messages to chat rooms
+- **Starred Messages**: Personal message bookmarking system
+
+### File & Media
+- **File Sharing**: Efficient file uploads/downloads with Node.js streams and buffers
+- **File Metadata**: Store and retrieve file information with messages
+
+### Authentication & Security
+- **User Authentication**: Secure JWT-based login and registration
+- **Permission System**: Role-based access control for message operations
+- **Input Validation**: Comprehensive Joi-based validation
+- **Rate Limiting**: Configurable rate limits for different endpoints
+
+### Data & Performance
+- **Persistent Storage**: MongoDB with optimized schemas and indexing
+- **Real-time Updates**: Socket.IO events for all messaging features
+- **Scalability**: Horizontal scaling support with concurrent user optimization
+- **Comprehensive Testing**: 80%+ coverage with unit, integration, and performance tests
 
 ## Technologies Used
 
-- **Node.js**: JavaScript runtime for building server-side logic.
-- **Express**: Fast web framework for Node.js.
-- **Socket.IO**: Enables real-time, bidirectional communication between server and client.
-- **MongoDB**: NoSQL database used for chat storage and user management.
-- **JWT**: Secure user authentication using JSON Web Tokens.
-- **Streams & Buffers**: Handle large file uploads/downloads without blocking the server.
+- **Node.js**: JavaScript runtime for building server-side logic
+- **Express**: Fast web framework for Node.js with RESTful API design
+- **Socket.IO**: Real-time, bidirectional communication with comprehensive event handling
+- **MongoDB**: NoSQL database with optimized schemas for chat features
+- **Mongoose**: ODM for MongoDB with advanced querying and population
+- **JWT**: Secure user authentication using JSON Web Tokens
+- **Joi**: Schema validation for all API endpoints
+- **Bcrypt**: Password hashing and security
+- **Multer**: File upload handling with stream processing
+- **Jest**: Comprehensive testing framework
 
 ## Project Structure
 
@@ -258,13 +279,45 @@ Robust error handling throughout the application:
 - Environment-specific configurations
 - Clean, maintainable code structure
 
+## API Endpoints
+
+### Messages
+- `POST /api/chat/messages` - Send message with optional reply/mentions
+- `GET /api/chat/messages/:room` - Get messages with pagination
+- `PUT /api/chat/messages/:id` - Edit message (owner only)
+- `DELETE /api/chat/messages/:id` - Soft delete message (owner only)
+- `GET /api/chat/messages/search` - Search messages with filters
+
+### Reactions
+- `POST /api/chat/messages/:id/react` - Add emoji reaction
+- `DELETE /api/chat/messages/:id/react/:reactionId` - Remove reaction
+
+### Message Status
+- `PUT /api/chat/messages/:id/read` - Mark message as read
+- `PUT /api/chat/messages/:id/pin` - Pin/unpin message
+
+### Favorites
+- `POST /api/chat/favorites` - Add message to favorites
+- `DELETE /api/chat/favorites/:messageId` - Remove from favorites
+- `GET /api/chat/favorites` - Get user's favorite messages
+
+### Socket Events
+- `sendMessage`, `receiveMessage`, `receiveReply`
+- `addReaction`, `removeReaction`, `reactionAdded`, `reactionRemoved`
+- `editMessage`, `deleteMessage`, `messageEdited`, `messageDeleted`
+- `markAsRead`, `messageRead`, `messageDelivered`
+- `typingStart`, `typingStop`, `userTyping`, `userStoppedTyping`
+- `pinMessage`, `messagePinned`, `messageUnpinned`
+- `mention` - Real-time mention notifications
+
 ## Future Improvements
 
-- **Private Messaging**: Implement direct messaging between individual users.
-- **Group Chats**: Allow for group chat rooms with multiple participants.
-- **Notifications**: Add real-time notifications for new messages or file uploads.
-- **OAuth Integration**: Implement social logins via Google, Facebook, etc.
-- **Admin Dashboard**: Build a dashboard for managing users, chat rooms, and file uploads.
+- **Push Notifications**: Mobile and web push notifications for mentions
+- **Voice Messages**: Audio message recording and playback
+- **Message Encryption**: End-to-end encryption for sensitive conversations
+- **Advanced Search**: Search by date range, file type, user, etc.
+- **Message Templates**: Quick reply templates and saved responses
+- **Admin Dashboard**: Comprehensive admin panel for user and content management
 
 ## License
 

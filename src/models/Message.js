@@ -8,22 +8,91 @@ const ChatMessageSchema = new mongoose.Schema({
   },
   sender: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User", // Reference to the User model
+    ref: "User",
     required: true,
   },
   room: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "ChatRoom", // Reference to the ChatRoom model
+    ref: "ChatRoom",
     required: true,
   },
   timestamp: {
     type: Date,
-    default: Date.now, // Set default to current time
+    default: Date.now,
   },
   file: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'File'
   },
+  // Message Reactions
+  reactions: [{
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true
+    },
+    emoji: {
+      type: String,
+      required: true
+    },
+    timestamp: {
+      type: Date,
+      default: Date.now
+    }
+  }],
+  // Message Editing/Deletion
+  editedAt: {
+    type: Date
+  },
+  deletedAt: {
+    type: Date
+  },
+  deletedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  },
+  // Message Threads/Replies
+  replyTo: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "ChatMessage"
+  },
+  threadId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "ChatMessage"
+  },
+  // Mentions
+  mentions: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  }],
+  // Message Status
+  status: {
+    type: String,
+    enum: ['sent', 'delivered', 'read'],
+    default: 'sent'
+  },
+  readBy: [{
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    },
+    readAt: {
+      type: Date,
+      default: Date.now
+    }
+  }],
+  // Pinned Messages
+  pinned: {
+    type: Boolean,
+    default: false
+  },
+  pinnedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  },
+  pinnedAt: {
+    type: Date
+  }
 });
 
 

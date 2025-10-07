@@ -5,6 +5,97 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2024-12-29
+
+### Added - Professional Messaging Features
+- **Message Reactions**: Emoji reactions with real-time updates
+  - Add/remove reactions with user tracking
+  - Socket events: `addReaction`, `removeReaction`, `reactionAdded`, `reactionRemoved`
+  - API endpoints: `POST /messages/:id/react`, `DELETE /messages/:id/react/:reactionId`
+
+- **Message Editing/Deletion**: Full message lifecycle management
+  - Edit messages with timestamp tracking (`editedAt` field)
+  - Soft delete with permission checks (`deletedAt`, `deletedBy` fields)
+  - Socket events: `editMessage`, `deleteMessage`, `messageEdited`, `messageDeleted`
+  - API endpoints: `PUT /messages/:id`, `DELETE /messages/:id`
+
+- **Message Threads/Replies**: Threaded conversation support
+  - Reply to specific messages with `replyTo` and `threadId` fields
+  - Automatic thread grouping and hierarchy
+  - Socket events: `receiveReply` for real-time thread updates
+  - Enhanced message model with thread relationship tracking
+
+- **@Mentions System**: User mention functionality
+  - Automatic mention parsing from message content (`@username`)
+  - Real-time mention notifications via Socket.IO
+  - `mentions` array field in message model
+  - NotificationService for centralized mention handling
+
+- **Message Status Indicators**: Comprehensive delivery tracking
+  - Status progression: sent → delivered → read
+  - `readBy` array tracking which users have read messages
+  - Socket events: `messageDelivered`, `messageRead`, `markAsRead`
+  - API endpoint: `PUT /messages/:id/read`
+
+- **Typing Indicators**: Real-time typing notifications
+  - Socket events: `typingStart`, `typingStop`, `userTyping`, `userStoppedTyping`
+  - Debouncing logic to prevent spam
+  - Automatic cleanup on user disconnect
+
+- **Message Search**: Advanced search capabilities
+  - Full-text search with MongoDB regex
+  - Pagination and filtering support
+  - API endpoint: `GET /messages/search?query=keyword&room=roomId`
+  - Search validation with Joi schemas
+
+- **Pinned Messages**: Important message highlighting
+  - Pin/unpin messages with `pinned`, `pinnedBy`, `pinnedAt` fields
+  - Pinned messages sorted first in message retrieval
+  - Socket events: `pinMessage`, `messagePinned`, `messageUnpinned`
+  - API endpoint: `PUT /messages/:id/pin`
+
+- **Starred/Favorite Messages**: Personal message bookmarking
+  - New `FavoriteMessage` model with user-message relationships
+  - API endpoints: `POST /favorites`, `DELETE /favorites/:messageId`, `GET /favorites`
+  - Unique constraints to prevent duplicate favorites
+
+### Enhanced
+- **Message Model**: Comprehensive schema with all new fields
+  - Reactions, editing, deletion, threads, mentions, status, pinning
+  - Proper MongoDB indexing and relationships
+  - Population support for related data
+
+- **Socket Service**: Complete real-time event handling
+  - 15+ new socket events for all messaging features
+  - Proper error handling and user authentication
+  - Typing user management and cleanup
+
+- **Chat Controller**: Full CRUD operations with permissions
+  - Enhanced message operations with validation
+  - Permission middleware for edit/delete operations
+  - Comprehensive error handling and response formatting
+
+- **Validation Schemas**: Complete Joi validation
+  - Reaction, edit, search, and favorite validation
+  - Enhanced message validation with new fields
+  - Proper error messages and field validation
+
+- **API Routes**: RESTful endpoints for all features
+  - 10+ new endpoints for messaging functionality
+  - Proper HTTP methods and status codes
+  - Authentication middleware on all protected routes
+
+### Added - Infrastructure
+- **Permission Middleware**: Message ownership and access control
+- **NotificationService**: Centralized notification handling
+- **Enhanced Validations**: Comprehensive input validation for all features
+- **FavoriteMessage Model**: Dedicated model for user favorites
+
+### Breaking Changes
+- Enhanced Message model schema (requires database migration)
+- New API endpoints and socket events
+- Updated authentication requirements for new endpoints
+
 ## [1.0.2] - 2024-12-28
 
 ### Added
@@ -97,8 +188,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Planned
-- Private messaging between users
-- Group chat rooms
-- Push notifications
-- OAuth integration
-- Admin dashboard
+- **Push Notifications**: Mobile and web push notifications for mentions
+- **Voice Messages**: Audio message recording and playback
+- **Message Encryption**: End-to-end encryption for sensitive conversations
+- **Advanced Search**: Search by date range, file type, user, etc.
+- **Message Templates**: Quick reply templates and saved responses
+- **Admin Dashboard**: Comprehensive admin panel for user and content management
+- **Private Messaging**: Direct messaging between individual users
+- **Group Chat Management**: Advanced group chat administration
+- **OAuth Integration**: Social login with Google, Facebook, GitHub

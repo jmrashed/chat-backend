@@ -12,6 +12,8 @@
         "test:performance": "jest tests/performance.test.js --detectOpenHandles --runInBand",
         "test:coverage": "jest --coverage --detectOpenHandles",
         "test:watch": "jest --watch --detectOpenHandles",
+        "test:db": "jest tests/database.test.js --detectOpenHandles",
+        "test:login": "jest tests/login.test.js --detectOpenHandles",
         "lint": "eslint .",
         "prestart": "node -e 'require(\"dotenv\").config()'",
         "seed": "node seeder.js"
@@ -88,6 +90,7 @@
         "winston": "^3.15.0"
     },
     "devDependencies": {
+        "axios": "^1.12.2",
         "dotenv": "^16.4.5",
         "eslint": "^8.51.0",
         "eslint-config-airbnb-base": "^15.0.0",

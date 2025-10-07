@@ -1,34 +1,37 @@
 const Joi = require('joi');
 
-/**
- * Validation schema for sending a message
- */
+// Enhanced message validation with new features
 const sendMessageValidation = Joi.object({
-  roomId: Joi.string()
-    .pattern(/^[0-9a-fA-F]{24}$/)
-    .required()
-    .messages({
-      'string.pattern.base': 'Invalid room ID format',
-      'any.required': 'Room ID is required'
-    }),
-  content: Joi.string()
-    .min(1)
-    .max(1000)
-    .required()
-    .trim()
-    .messages({
-      'string.base': 'Message content must be a string',
-      'string.empty': 'Message content cannot be empty',
-      'string.min': 'Message content must be at least 1 character long',
-      'string.max': 'Message content cannot exceed 1000 characters',
-      'any.required': 'Message content is required'
-    }),
-  fileId: Joi.string()
-    .pattern(/^[0-9a-fA-F]{24}$/)
-    .optional()
-    .messages({
-      'string.pattern.base': 'Invalid file ID format'
-    })
+  roomId: Joi.string().pattern(/^[0-9a-fA-F]{24}$/).required(),
+  content: Joi.string().min(1).max(1000).required().trim(),
+  fileId: Joi.string().pattern(/^[0-9a-fA-F]{24}$/).optional(),
+  replyTo: Joi.string().pattern(/^[0-9a-fA-F]{24}$/).optional(),
+  mentions: Joi.array().items(Joi.string().pattern(/^[0-9a-fA-F]{24}$/)).optional()
+});
+
+// Reaction validation
+const reactionValidation = Joi.object({
+  emoji: Joi.string().required().messages({
+    'any.required': 'Emoji is required'
+  })
+});
+
+// Edit message validation
+const editMessageValidation = Joi.object({
+  content: Joi.string().min(1).max(1000).required().trim()
+});
+
+// Search validation
+const searchValidation = Joi.object({
+  query: Joi.string().min(1).required(),
+  room: Joi.string().pattern(/^[0-9a-fA-F]{24}$/).required(),
+  page: Joi.number().integer().min(1).default(1),
+  limit: Joi.number().integer().min(1).max(100).default(20)
+});
+
+// Favorite validation
+const favoriteValidation = Joi.object({
+  messageId: Joi.string().pattern(/^[0-9a-fA-F]{24}$/).required()
 });
 
 /**
@@ -73,5 +76,9 @@ module.exports = {
   sendMessageValidation,
   messageIdValidation,
   getMessagesValidation,
-  messageQueryValidation
+  messageQueryValidation,
+  reactionValidation,
+  editMessageValidation,
+  searchValidation,
+  favoriteValidation
 };
