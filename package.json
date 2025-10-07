@@ -1,7 +1,7 @@
 {
-    "name": "real-time-chat-app",
+    "name": "@jmrashed/chat-backend",
     "version": "1.0.2",
-    "description": "A real-time chat application with file sharing, authentication, and MongoDB persistence.",
+    "description": "Professional real-time chat application backend server built with Node.js, Express.js, Socket.IO, and MongoDB. Features JWT authentication, file sharing, rate limiting, comprehensive testing, and enterprise-grade security.",
     "main": "src/app.js",
     "scripts": {
         "start": "node src/app.js",
@@ -17,16 +17,57 @@
         "seed": "node seeder.js"
     },
     "keywords": [
-        "Node.js",
-        "Express",
-        "Socket.IO",
-        "MongoDB",
-        "Chat",
-        "Real-time",
-        "JWT"
+        "nodejs",
+        "express",
+        "socket.io",
+        "mongodb",
+        "mongoose",
+        "chat-application",
+        "real-time",
+        "websocket",
+        "jwt-authentication",
+        "file-sharing",
+        "rest-api",
+        "backend",
+        "server",
+        "messaging",
+        "rate-limiting",
+        "security",
+        "bcrypt",
+        "joi-validation",
+        "jest-testing",
+        "docker",
+        "scalable",
+        "enterprise",
+        "microservice",
+        "api"
     ],
-    "author": "jmrashed",
+    "author": {
+        "name": "Md Rasheduzzaman",
+        "email": "jmrashed@gmail.com",
+        "url": "https://jmrashed.github.io"
+    },
+    "contributors": [
+        {
+            "name": "Md Rasheduzzaman",
+            "email": "jmrashed@gmail.com",
+            "url": "https://github.com/jmrashed"
+        }
+    ],
     "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/jmrashed/chat-backend.git"
+    },
+    "homepage": "https://github.com/jmrashed/chat-backend#readme",
+    "bugs": {
+        "url": "https://github.com/jmrashed/chat-backend/issues",
+        "email": "jmrashed@gmail.com"
+    },
+    "funding": {
+        "type": "github",
+        "url": "https://github.com/sponsors/jmrashed"
+    },
     "dependencies": {
         "bcryptjs": "^2.4.3",
         "body-parser": "^1.20.3",
@@ -61,6 +102,16 @@
         "coverageDirectory": "coverage"
     },
     "engines": {
-        "node": ">=14.0.0"
+        "node": ">=18.0.0",
+        "npm": ">=8.0.0"
+    },
+    "os": [
+        "linux",
+        "darwin",
+        "win32"
+    ],
+    "private": false,
+    "publishConfig": {
+        "access": "public"
     }
 }
